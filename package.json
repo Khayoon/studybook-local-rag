@@ -1,0 +1,15 @@
+{
+  "name": "studybook-local-rag",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local document research and study dashboard",
+  "type": "module",
+  "scripts": {
+    "check": "node --check frontend/app.js",
+    "format": "prettier --write frontend/**/*.{html,css,js}",
+    "format:check": "prettier --check frontend/**/*.{html,css,js}"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  }
+}

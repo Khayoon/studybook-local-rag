@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111414" />
+    <meta
+      name="description"
+      content="A private, local workspace for your documents, questions, and ideas."
+    />
+    <title>Studybook — Your personal thinking space</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23cfdfbe'/%3E%3Cpath d='M15 18h13l4 4 4-4h13v29H36l-4 3-4-3H15z' fill='none' stroke='%23262f24' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M32 23v24' stroke='%23262f24' stroke-width='4'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Studybook home"
+        ><span class="brand-mark" data-icon="book"></span
+        ><span>studybook<span class="brand-dot">.</span></span></a
+      >
+      <span class="top-divider"></span
+      ><span class="workspace-label"
+        >Personal workspace <span class="slash">/</span>
+        <span id="breadcrumb-title">My notebook</span></span
+      >
+      <div class="top-actions">
+        <span class="local-pill"><i></i> On your device</span
+        ><button
+          class="icon-button"
+          id="settings-button"
+          aria-label="Model settings"
+          title="Model settings"
+          data-icon="settings"
+        ></button
+        ><span class="avatar" aria-label="Local workspace">S</span>
+      </div>
+    </header>
+
+    <nav class="mobile-tabs" aria-label="Workspace panels">
+      <button data-panel="sources">Sources <span id="mobile-source-count">0</span></button
+      ><button class="active" data-panel="conversation">Notebook</button
+      ><button data-panel="studio">Studio</button>
+    </nav>
+
+    <main class="workspace">
+      <aside class="panel sources-panel" id="sources-panel" aria-label="Document sources">
+        <div class="panel-heading">
+          <h2>Sources <span class="count" id="source-count">0</span></h2>
+          <span class="muted small" data-icon="panels"></span>
+        </div>
+        <div class="source-tools">
+          <button class="button primary upload-trigger">
+            <span data-icon="plus"></span> Add sources</button
+          ><input
+            type="file"
+            id="file-input"
+            accept=".pdf,.txt,.md,.markdown"
+            multiple
+            hidden
+          /><label class="search-field"
+            ><span data-icon="search"></span
+            ><input
+              id="source-search"
+              type="search"
+              placeholder="Find a source"
+              aria-label="Find a source"
+            /><kbd>/</kbd></label
+          >
+        </div>
+        <div class="source-selection">
+          <label
+            ><input id="select-all" type="checkbox" checked /><span>Select all sources</span></label
+          ><span id="selected-count">0 selected</span>
+        </div>
+        <div id="source-list" class="source-list"></div>
+        <div id="source-empty" class="source-empty">
+          <div class="empty-file-icon" data-icon="files"></div>
+          <h3>Room for your ideas</h3>
+          <p>Add your reading material.<br />We’ll help you connect the dots.</p>
+          <button class="text-button upload-trigger">
+            Choose files <span data-icon="arrow-right"></span>
+          </button>
+        </div>
+        <div class="drop-hint" id="drop-hint">
+          <span data-icon="upload"></span>
+          <div>
+            <strong>Drop your files here</strong><span>PDF, TXT, Markdown · up to 25 MB each</span>
+          </div>
+        </div>
+        <div class="source-footer">
+          <span data-icon="shield"></span><span>Your sources stay on this device.</span>
+        </div>
+      </aside>
+
+      <section
+        class="conversation-panel"
+        id="conversation-panel"
+        aria-label="Notebook conversation"
+      >
+        <div class="notebook-toolbar">
+          <span class="eyebrow"><i></i> YOUR THINKING SPACE</span
+          ><button
+            id="rename-button"
+            class="icon-button"
+            aria-label="Rename notebook"
+            title="Rename notebook"
+            data-icon="edit"
+          ></button>
+        </div>
+        <div class="conversation-scroll" id="conversation-scroll">
+          <div class="notebook-intro" id="notebook-intro">
+            <div class="notebook-emblem">
+              <span data-icon="book"></span><span class="emblem-star">✧</span>
+            </div>
+            <div class="notebook-meta">
+              <span>PRIVATE NOTEBOOK</span><span class="meta-dot">·</span
+              ><span id="intro-source-count">No sources yet</span>
+            </div>
+            <h1 id="notebook-title">My notebook</h1>
+            <p class="notebook-description" id="notebook-description">
+              A place for your reading, your questions, and your next<br class="wide-break" />
+              lightbulb moment. Bring your sources. Make them yours.
+            </p>
+            <div class="intro-rule"></div>
+            <div class="welcome" id="welcome">
+              <div class="section-kicker">
+                <span data-icon="sparkles"></span> FROM INFORMATION TO UNDERSTANDING
+              </div>
+              <h2>Good questions start here.</h2>
+              <p>
+                Turn a folder of documents into a conversation.<br />Every answer, connected to its
+                source.
+              </p>
+              <div class="onboarding-steps">
+                <div>
+                  <span class="step-icon" data-icon="files"></span>
+                  <div>
+                    <strong>Bring it all together</strong>
+                    <p>Upload PDFs, notes, and Markdown files.</p>
+                  </div>
+                </div>
+                <div>
+                  <span class="step-icon" data-icon="messages"></span>
+                  <div>
+                    <strong>Follow your curiosity</strong>
+                    <p>Ask across sources. Find the bigger picture.</p>
+                  </div>
+                </div>
+                <div>
+                  <span class="step-icon" data-icon="layers"></span>
+                  <div>
+                    <strong>Make something that sticks</strong>
+                    <p>Create study guides, summaries, and flashcards.</p>
+                  </div>
+                </div>
+              </div>
+              <button id="sample-button" class="sample-button">
+                <span data-icon="compass"></span
+                ><span>Just looking around? <strong>Try a sample notebook</strong></span
+                ><span data-icon="arrow-up-right"></span>
+              </button>
+            </div>
+            <div class="ready-notice" id="ready-notice" hidden>
+              <span data-icon="check"></span>
+              <div>
+                <strong>Your sources are ready to explore.</strong>
+                <p>
+                  Read a source on the left, or connect your local model to start a conversation.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="messages" id="messages" aria-live="polite" aria-relevant="additions"></div>
+        </div>
+        <div class="composer-area">
+          <div id="suggestions" class="suggestions">
+            <button data-prompt="What are the key ideas across these documents?">
+              Find the key ideas <span data-icon="arrow-up-right"></span></button
+            ><button data-prompt="How do these sources connect to each other?">
+              Connect the dots <span data-icon="arrow-up-right"></span>
+            </button>
+          </div>
+          <form id="chat-form" class="composer">
+            <textarea
+              id="message-input"
+              rows="1"
+              placeholder="Ask a question about your sources…"
+              aria-label="Ask a question about your sources"
+            ></textarea>
+            <div class="composer-bottom">
+              <span id="composer-sources"
+                ><span data-icon="stack"></span><span>0 sources selected</span></span
+              ><button
+                class="send-button"
+                type="submit"
+                id="send-button"
+                aria-label="Send message"
+                data-icon="arrow-up"
+              ></button>
+            </div>
+          </form>
+          <div class="composer-footnote">
+            <span>Grounded in your sources. Powered by your local model.</span
+            ><span><kbd>↵</kbd> to send</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel studio-panel" id="studio-panel" aria-label="Study studio">
+        <div class="panel-heading">
+          <h2>Studio <span class="studio-spark" data-icon="sparkles"></span></h2>
+          <span class="muted small" data-icon="panels"></span>
+        </div>
+        <p class="studio-description">A new way to work with what you know.</p>
+        <div class="studio-grid">
+          <button class="studio-card sage" data-generate="study_guide">
+            <span class="card-icon" data-icon="book-open"></span
+            ><span class="card-arrow" data-icon="arrow-up-right"></span><strong>Study guide</strong
+            ><small>Build your understanding</small></button
+          ><button class="studio-card lilac" data-generate="summary">
+            <span class="card-icon" data-icon="align-left"></span
+            ><span class="card-arrow" data-icon="arrow-up-right"></span><strong>Summary</strong
+            ><small>See the essentials</small></button
+          ><button class="studio-card peach" data-generate="flashcards">
+            <span class="card-icon" data-icon="layers"></span
+            ><span class="card-arrow" data-icon="arrow-up-right"></span><strong>Flashcards</strong
+            ><small>Make it memorable</small></button
+          ><button class="studio-card blue" data-generate="quiz">
+            <span class="card-icon" data-icon="circle-help"></span
+            ><span class="card-arrow" data-icon="arrow-up-right"></span
+            ><strong>Practice quiz</strong><small>Put yourself to the test</small>
+          </button>
+        </div>
+        <div class="outputs-heading">
+          <h3>Your creations</h3>
+          <span id="artifact-count">0</span>
+        </div>
+        <div id="artifact-list" class="artifact-list"></div>
+        <div id="artifact-empty" class="artifact-empty">
+          <span data-icon="sprout"></span>
+          <h3>A little knowledge, grown.</h3>
+          <p>Your study materials will live here.<br />Choose a format above to get started.</p>
+        </div>
+        <div class="model-card">
+          <div class="model-card-heading">
+            <span class="model-symbol" data-icon="cpu"></span>
+            <div>
+              <strong>Made for local minds</strong
+              ><span id="model-status">Model not connected</span>
+            </div>
+            <i class="model-dot" id="model-dot"></i>
+          </div>
+          <p>Your model. Your documents.<br />A space that’s entirely yours.</p>
+          <button id="configure-button" class="text-button">
+            Configure model <span data-icon="arrow-right"></span>
+          </button>
+        </div>
+      </aside>
+    </main>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <dialog id="settings-dialog" class="dialog settings-dialog">
+      <form id="settings-form">
+        <div class="dialog-heading">
+          <div>
+            <span class="eyebrow">YOUR LOCAL SETUP</span>
+            <h2>Make yourself at home.</h2>
+          </div>
+          <button
+            type="button"
+            class="icon-button close-dialog"
+            aria-label="Close settings"
+            data-icon="x"
+          ></button>
+        </div>
+        <p class="dialog-description">
+          Connect an OpenAI-compatible server on this computer whenever you’re ready.
+        </p>
+        <label class="form-field"
+          >API endpoint<input
+            id="endpoint-input"
+            type="url"
+            required
+            value="http://127.0.0.1:8090/v1"
+          /><small>Include /v1. Saving doesn’t start or contact your model.</small></label
+        ><label class="form-field"
+          >Chat model<input
+            id="model-input"
+            required
+            placeholder="Model ID from your local server"
+          /><small>Use the exact model ID served by your local API.</small></label
+        ><label class="form-field"
+          >Retrieval index<select id="embedding-select">
+            <option value="lexical">Built-in local index · no model needed</option>
+            <option value="local_openai">Semantic embeddings · local API</option></select
+          ><small
+            >The built-in index matches words using hashed vectors. Semantic search requires a
+            separate embedding model.</small
+          ></label
+        ><label class="form-field" id="embedding-model-field" hidden
+          >Embedding model<input
+            id="embedding-input"
+            placeholder="Local embedding model ID"
+          /><small
+            >Your endpoint must also serve /embeddings. Empty the notebook before changing the index
+            type.</small
+          ></label
+        ><label class="form-field"
+          >API key <span class="optional">optional</span
+          ><input
+            id="api-key-input"
+            type="password"
+            autocomplete="off"
+            placeholder="Session only; or set STUDYBOOK_API_KEY in .env"
+        /></label>
+        <div id="connection-result" class="connection-result" hidden role="status"></div>
+        <div class="dialog-actions">
+          <button type="button" class="button secondary" id="test-connection">
+            Test saved connection</button
+          ><button type="submit" class="button primary">Save settings</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="reader-dialog" class="dialog reader-dialog">
+      <div class="dialog-heading">
+        <div>
+          <span class="eyebrow" id="reader-eyebrow">SOURCE DOCUMENT</span>
+          <h2 id="reader-title"></h2>
+        </div>
+        <button class="icon-button close-dialog" aria-label="Close reader" data-icon="x"></button>
+      </div>
+      <div id="reader-meta" class="reader-meta"></div>
+      <div id="reader-content" class="reader-content"></div>
+      <div class="dialog-actions" id="reader-actions"></div>
+    </dialog>
+    <dialog id="rename-dialog" class="dialog small-dialog">
+      <form id="rename-form">
+        <div class="dialog-heading">
+          <h2>Name your notebook</h2>
+          <button
+            type="button"
+            class="icon-button close-dialog"
+            aria-label="Cancel rename"
+            data-icon="x"
+          ></button>
+        </div>
+        <label class="form-field"
+          >Notebook name<input id="notebook-name-input" maxlength="90" required
+        /></label>
+        <div class="dialog-actions">
+          <button class="button primary" type="submit">Save name</button>
+        </div>
+      </form>
+    </dialog>
+    <div class="global-drop" id="global-drop" hidden>
+      <div>
+        <span data-icon="upload"></span>
+        <h2>A new source of inspiration.</h2>
+        <p>Drop your PDF, TXT, or Markdown files to add them.</p>
+      </div>
+    </div>
+  </body>
+</html>
